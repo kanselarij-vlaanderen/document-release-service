@@ -21,5 +21,6 @@ services:
 
 The following environment variables have to be configured:
 
-* RELEASE_INTERVAL: interval (in minutes) at which the consumer needs to sync data automatically. If negative, the release can only be triggered manually via the API endpoint.
+* RELEASEN_CRON_PATTERN: (default 0 * * * * * = every minute): frequency to check for documents ready for release
+.
 * ESTIMATED_DURATION: estimation of the time it takes to release the documents. If the release needs to be finished on time X, the release time is set on X - ESTIMATED_DURATION
