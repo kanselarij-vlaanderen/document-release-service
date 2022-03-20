@@ -1,0 +1,17 @@
+{
+  "name": "document-release-service",
+  "version": "0.1.0",
+  "description": "Microservice that triggers the release of documents for NewsletterInfo.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanselarij/document-release-service.git"
+  },
+  "author": "redpencil.io",
+  "license": "MIT",
+  "dependencies": {
+    "@lblod/mu-auth-sudo": "^0.2.0"
+  }
+}
