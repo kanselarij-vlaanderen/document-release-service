@@ -1,7 +1,7 @@
 {
   "name": "document-release-service",
   "version": "0.1.0",
-  "description": "Microservice that triggers the release of documents for NewsletterInfo.",
+  "description": "Microservice to automatically trigger the release of documents in Kaleidos.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
