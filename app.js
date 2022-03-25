@@ -9,12 +9,15 @@ new CronJob(RELEASE_CRON_PATTERN, function() {
 }, null, true);
 
 async function triggerDocumentRelease() {
-  const meetingUris = await queryMeetingsReadyForDocumentRelease();
+  const meetings = await queryMeetingsReadyForDocumentRelease();
 
-  if (meetingUris.length) {
-    console.log(`Found ${meetingUris.length} meetings for which a document release must be triggered.`);
-    await releaseDocumentsForMeeting(meetingUris);
-    console.log(`Releasing documents done at ${new Date().toISOString()}`);
+  if (meetings.length) {
+    console.log(`Found ${meetings.length} meetings for which a document release must be triggered.`);
+    meetings.forEach((meeting) => {
+      console.log(`- <${meeting.uri}> doc release scheduled at ${meeting.releaseDate}`);
+    });
+    await releaseDocumentsForMeeting(meetings);
+    console.log(`Releasing documents finished at ${new Date().toISOString()}.`);
   } else {
     console.log('No meeting found for which a document release must be scheduled');
   }
