@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kanselarij/document-release-service.git"
+    "url": "git+https://github.com/kanselarij-vlaanderen/document-release-service.git"
   },
   "author": "redpencil.io",
   "license": "MIT",
