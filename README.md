@@ -18,7 +18,8 @@ services:
 The following environment variables have to be configured:
 * `RELEASE_CRON_PATTERN`: (default: `0 * * * * *` = every minute): frequency to check for meetings for which documents must be released.
 .
-* `ESTIMATED_DURATION` (seconds, default: 600 = 10 minutes): estimation of the time it takes to release the documents. If the release needs to be finished on time X, the release process is started on X - ESTIMATED_DURATION.
+* `ESTIMATED_DURATION` (seconds, default: 600 = 10 minutes): estimation of the time it takes to release the documents. If the release needs to be finished on time X, the release process is started earlier by checking X against the current date/time + ESTIMATED_DURATION.
+The release process will be finished anywhere between X - ESTIMATED_DURATION and X or past X if the ESTIMATED_DURATION is lower than the actual duration.
 
 ### Data model
 The service queries for meetings which:
