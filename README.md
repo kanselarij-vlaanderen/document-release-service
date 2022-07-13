@@ -22,6 +22,7 @@ The following environment variables have to be configured:
 The release process will be finished anywhere between X - ESTIMATED_DURATION and X or past X if the ESTIMATED_DURATION is lower than the actual duration.
 
 ### Data model
+ <!-- TODO KAS-3431 -->
 The service queries for meetings which:
 - have a scheduled document release date (`ext:issuedDocDate`) on their general newsletter within the release timeframe
 - don't have a released document date (`ext:releasedDocuments`) yet
