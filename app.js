@@ -14,9 +14,8 @@ new CronJob(RELEASE_CRON_PATTERN, async function() {
   await triggerThemisDocumentPublication()
 }, null, true);
 
-// TODO KAS-3431 check currently does not confirm if the meeting is final. We might release stuff too soon.
+// TODO KAS-3431.
 // What happens if meeting in finalized outside of the release window?
-// What happens if I never confirm the release datetime? nothing it seems
 // What happens if decisions have never been released? document should not be released regardless of time.
 // saving the internal models again in frontend without refresh removes the prov:startedAtTime!!
 
