@@ -1,22 +1,19 @@
 import { app, errorHandler } from 'mu';
 import { RELEASE_CRON_PATTERN } from './config';
 import { CronJob } from 'cron';
-import {  
-  queryMeetingsReadyForDocumentRelease, 
+import {
+  queryMeetingsReadyForDocumentRelease,
   queryMeetingsReadyForThemisRelease,
-  publishDocumentsInternallyForMeetings,
-  publishDocumentsToThemisForMeetings,
+  startPublicationActivities
 } from './lib/query';
 
 new CronJob(RELEASE_CRON_PATTERN, async function() {
   console.log(`Automatic release of documents triggered by cron job at ${new Date().toISOString()}`);
   await triggerInternalDocumentPublication();
-  await triggerThemisDocumentPublication()
+  await triggerThemisDocumentPublication();
 }, null, true);
 
 // TODO KAS-3431.
-// What happens if meeting in finalized outside of the release window?
-// What happens if decisions have never been released? document should not be released regardless of time.
 // saving the internal models again in frontend without refresh removes the prov:startedAtTime!!
 
 async function triggerInternalDocumentPublication() {
@@ -27,7 +24,8 @@ async function triggerInternalDocumentPublication() {
     meetings.forEach((meeting) => {
       console.log(`- <${meeting.uri}> internal document publication scheduled at ${meeting.plannedPublicationTime}`);
     });
-    await publishDocumentsInternallyForMeetings(meetings);
+    const activities = meetings.map((meeting) => meeting.publicationActivityUri);
+    await startPublicationActivities(activities);
     console.log(`Releasing documents finished at ${new Date().toISOString()}.`);
   } else {
     console.log('No meeting found for which an internal document publication must be scheduled');
@@ -38,14 +36,15 @@ async function triggerThemisDocumentPublication() {
   const meetings = await queryMeetingsReadyForThemisRelease();
 
   if (meetings.length) {
-    console.log(`Found ${meetings.length} meetings for which a themis document publication must be triggered.`);
+    console.log(`Found ${meetings.length} meetings for which a Themis document publication must be triggered.`);
     meetings.forEach((meeting) => {
-      console.log(`- <${meeting.uri}> themis document publication scheduled at ${meeting.plannedPublicationTime}`);
+      console.log(`- <${meeting.uri}> Themis document publication scheduled at ${meeting.plannedPublicationTime}`);
     });
-    await publishDocumentsToThemisForMeetings(meetings);
-    console.log(`Publishing documents to themis finished at ${new Date().toISOString()}.`);
+    const activities = meetings.map((meeting) => meeting.publicationActivityUri);
+    await startPublicationActivities(activities);
+    console.log(`Publishing documents to Themis finished at ${new Date().toISOString()}.`);
   } else {
-    console.log('No meeting found for which a themis document publication must be scheduled');
+    console.log('No meeting found for which a Themis document publication must be scheduled');
   }
 };
 
