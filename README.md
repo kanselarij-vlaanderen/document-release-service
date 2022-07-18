@@ -22,12 +22,8 @@ The following environment variables have to be configured:
 The release process will be finished anywhere between X - ESTIMATED_DURATION and X or past X if the ESTIMATED_DURATION is lower than the actual duration.
 
 ### Data model
- <!-- TODO KAS-3431 -->
-The service queries for meetings which:
-- have a scheduled document release date (`ext:issuedDocDate`) on their general newsletter within the release timeframe
-- don't have a released document date (`ext:releasedDocuments`) yet
-- don't have a Themis publication-activity with scope `documents` yet
+The service queries for publication-activities with a confirmed planned status and a planned start that falls in the release window (current time - estimated duration).
 
-For each of those meetings the following data gets inserted:
-- a released document date, which will trigger an Yggdrasil propagation (via delta-notifier)
-- a Themis publication-activity, which will be picked up by the themis-export-service (via polling)
+For each of those activities, the release status gets updated and a start date is inserted.
+- for an internal document publication activity an Yggdrasil propagation will be triggered via the delta-notifier
+- a Themis publication-activity will be picked up by the themis-export-service via polling
