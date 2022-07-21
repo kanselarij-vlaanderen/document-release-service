@@ -13,9 +13,6 @@ new CronJob(RELEASE_CRON_PATTERN, async function() {
   await triggerThemisDocumentPublication();
 }, null, true);
 
-// TODO KAS-3431.
-// saving the internal models again in frontend without refresh removes the prov:startedAtTime!!
-
 async function triggerInternalDocumentPublication() {
   const meetings = await queryMeetingsReadyForDocumentRelease();
 
