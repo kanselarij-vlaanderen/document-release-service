@@ -9,6 +9,8 @@ Add the service to your `docker-compose.yml`:
 services:
   document-release:
     image: kanselarij/document-release-service:0.1.0
+    environment:
+      ALLOW_MU_AUTH_SUDO: "true"
 ```
 
 
